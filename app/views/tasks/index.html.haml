@@ -1,9 +1,12 @@
-%h1 タスクマン
+%h3 タスクリスト✔
 
-%table.table
+%table.table.table-striped
   %thead
     %tr
       %th タスク名
+      %th
+      %th
+      %th
 
   %tbody
     - @tasks.each do |task|
@@ -15,4 +18,4 @@
 
 %br
 
-= link_to 'New Task', new_task_path
+= link_to '新規作成', new_task_path, class: 'btn btn-primary'

@@ -5,7 +5,6 @@ ruby '2.5.0'
 
 gem 'rails', '~> 5.2.0'
 gem 'pg'
-gem 'haml-rails'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -15,6 +14,9 @@ gem 'jbuilder', '~> 2.5'
 # bootstrap4用
 gem 'bootstrap', '~> 4.1.1'
 gem 'jquery-rails'
+# haml
+gem 'haml-rails'
+gem 'erb2haml'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
