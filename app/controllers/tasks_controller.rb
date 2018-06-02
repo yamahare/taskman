@@ -28,7 +28,8 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        flash[:success] = '新しいタスクが作成されました！'
+        format.html { redirect_to @task }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -42,7 +43,8 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        flash[:success] = 'タスクの編集に成功しました！'
+        format.html { redirect_to @task }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -55,8 +57,9 @@ class TasksController < ApplicationController
   # DELETE /tasks/1.json
   def destroy
     @task.destroy
+    flash[:success] = 'タスクの削除に成功しました！'
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to tasks_url }
       format.json { head :no_content }
     end
   end
@@ -69,6 +72,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.fetch(:task, {})
+      params.require(:task).permit(:name, :detail)
     end
 end
