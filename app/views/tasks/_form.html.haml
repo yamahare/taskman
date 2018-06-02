@@ -6,5 +6,8 @@
         - @task.errors.full_messages.each do |message|
           %li= message
 
+  .field
+    = f.label :name, "タスク名"
+    = f.text_field :name
   .actions
     = f.submit 'Save'
