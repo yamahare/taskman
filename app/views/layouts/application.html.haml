@@ -14,10 +14,13 @@
 
     = render 'layouts/navbar'
 
-    %div.container.p-3
+    .container.p-3
+      - flash.each do |type, msg|
+        %div{ class: "alert alert-#{type}" }
+          = msg
       = yield
 
     - if Rails.env.development?
-      %div.container.p-3
-        %div.center.card.bg-light
+      .container.p-3
+        .center.card.bg-light
           = debug(params)
