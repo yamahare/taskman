@@ -1,3 +1,7 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 @import url('https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css');
+
+#error_explanation {
+  color: red;
+}
