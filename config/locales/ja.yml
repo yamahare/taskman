@@ -132,6 +132,8 @@ ja:
       too_short: は%{count}文字以上で入力してください
       wrong_length: は%{count}文字で入力してください
       other_than: は%{count}以外の値にしてください
+      other_than: は%{count}以外の値にしてください
+      can_not_use_past_day: は過去の日付を指定できません
     template:
       body: 次の項目を確認してください
       header:
@@ -208,3 +210,4 @@ ja:
     attributes:
       task:
         name: タスク名
+        end_date: 終了日
