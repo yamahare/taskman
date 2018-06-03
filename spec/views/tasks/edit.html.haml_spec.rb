@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "tasks/edit", type: :view do
   before(:each) do
-    @task = assign(:task, Task.create!())
+    @task = assign(:task, Task.create!(name:'洗濯物を干す'))
   end
 
   it "renders the edit task form" do
