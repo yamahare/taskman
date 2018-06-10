@@ -1,10 +1,10 @@
 = form_for @task do |f|
   - if @task.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@task.errors.count, "エラー")} 下記を修正してください！"
-      %ul
+      h2 = "#{pluralize(@task.errors.count, "エラー")}下記を修正してください！"
+      ul
         - @task.errors.full_messages.each do |message|
-          %li= message
+          li= message
 
   .form-group
     = f.label :name, "タスク名"

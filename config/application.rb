@@ -18,5 +18,6 @@ module Taskman
 
     config.active_record.default_timezone = :local
     config.time_zone = 'Tokyo'
+    config.generators.template_engine = :slim
   end
 end

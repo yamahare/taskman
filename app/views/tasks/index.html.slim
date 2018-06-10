@@ -1,0 +1,17 @@
+span ✅タスクリスト
+= link_to '新規作成', new_task_path, class: 'btn btn-primary'
+
+table.table.table-striped
+  thead
+    tr
+      th タスク名
+      th 終了日 <a href='/'>↓</a><a href='/'>↑</a
+      th
+      th
+  tbody
+    - @tasks.each do |task|
+      tr
+        td = link_to task.name, task, class: 'task_name'
+        td = task.end_date
+        td = link_to '編集', edit_task_path(task), class: 'btn btn-success'
+        td = link_to '削除', task, method: :delete, data: {confirm: 'ほんとに消しちゃう？ほんと？'}, class: 'btn btn-danger'

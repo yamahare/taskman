@@ -1,22 +1,22 @@
-!!!
-%html
-  %head
-    %meta{ charset: 'UTF-8' }
-    %meta{ name: 'viewport', content: 'initial-scale=1.0, user-scalable=no' }
-    %meta{ content: 'ja' }
-    %meta{ name: "author", content: "やまはれ" }
-    %title Taskman
+doctype html
+html
+  head
+    meta  charset='UTF-8'
+    meta  name='viewport' content='initial-scale=1.0, user-scalable=no'
+    meta  content='ja'
+    meta  name="author" content="やまはれ"
+    title Taskman
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
+  body
 
     = render 'layouts/navbar'
 
     .container.p-3
       - flash.each do |type, msg|
-        %div{ class: "alert alert-#{type}" }
+        div  class="alert alert-#{type}"
           = msg
       = yield
 
