@@ -14,7 +14,7 @@ gem 'jbuilder', '~> 2.5'
 # bootstrap4用
 gem 'bootstrap', '~> 4.1.1'
 gem 'jquery-rails'
-# haml
+# slim
 gem 'slim-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -33,6 +33,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.7'
+  gem 'timecop'
 end
 
 group :development do

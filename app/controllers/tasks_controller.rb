@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.order(created_at: :DESC)
+    @tasks = Task.order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
   end
 
   # GET /tasks/1
@@ -73,5 +73,13 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:name, :detail, :end_date)
+    end
+
+    def sort_column
+      %w[end_date].include?(params[:sort_column]) ? params[:sort_column] : 'created_at'
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:sort_direction]) ? params[:sort_direction] : 'desc'
     end
 end

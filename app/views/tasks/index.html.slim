@@ -5,7 +5,10 @@ table.table.table-striped
   thead
     tr
       th タスク名
-      th 終了日 <a href='/'>↓</a><a href='/'>↑</a
+      th
+        | 終了日
+        = link_to '▼', tasks_path(sort_column: 'end_date', sort_direction: 'desc')
+        = link_to '▲', tasks_path(sort_column: 'end_date', sort_direction: 'asc')
       th
       th
   tbody
