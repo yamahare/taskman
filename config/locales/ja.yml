@@ -210,4 +210,12 @@ ja:
     attributes:
       task:
         name: タスク名
+        priority: 優先度
         end_date: 終了日
+  enums:
+    task:
+      priority:
+        high: 高
+        middle: 中
+        low: 低
+        undef: ' '

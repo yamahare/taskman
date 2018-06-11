@@ -15,5 +15,8 @@
   .form-group
     = f.label :detail, "終了日"
     = f.date_field :end_date, class: 'form-control'
+  .form-group
+    = f.label :detail, "優先度"
+    = f.select :priority, Task.priorities_i18n.invert, {}, class: 'form-control'
   .actions
     = f.submit '保存', class: 'btn btn-primary'

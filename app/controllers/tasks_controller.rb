@@ -72,11 +72,11 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :detail, :end_date)
+      params.require(:task).permit(:name, :detail, :priority, :end_date)
     end
 
     def sort_column
-      %w[end_date].include?(params[:sort_column]) ? params[:sort_column] : 'created_at'
+      %w[end_date priority].include?(params[:sort_column]) ? params[:sort_column] : 'created_at'
     end
 
     def sort_direction
