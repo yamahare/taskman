@@ -16,6 +16,8 @@ gem 'bootstrap', '~> 4.1.1'
 gem 'jquery-rails'
 # slim
 gem 'slim-rails'
+# enum定義をi18nで翻訳
+gem 'enum_help'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
