@@ -28,7 +28,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        flash[:success] = '新しいタスクが作成されました！'
+        flash.now[:success] = '新しいタスクが作成されました！'
         format.html { redirect_to @task }
         format.json { render :show, status: :created, location: @task }
       else
@@ -43,7 +43,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        flash[:success] = 'タスクの編集に成功しました！'
+        flash.now[:success] = 'タスクの編集に成功しました！'
         format.html { redirect_to @task }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -57,7 +57,7 @@ class TasksController < ApplicationController
   # DELETE /tasks/1.json
   def destroy
     @task.destroy
-    flash[:success] = 'タスクの削除に成功しました！'
+    flash.now[:success] = 'タスクの削除に成功しました！'
     respond_to do |format|
       format.html { redirect_to tasks_url }
       format.json { head :no_content }
