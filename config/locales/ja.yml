@@ -219,3 +219,7 @@ ja:
         middle: 中
         low: 低
         undef: ' '
+      status:
+        completed: 完了
+        working: 着手
+        waiting: 未着手

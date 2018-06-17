@@ -13,10 +13,13 @@
     = f.label :detail, "詳細"
     = f.text_field :detail, class: 'form-control'
   .form-group
-    = f.label :detail, "終了日"
+    = f.label :end_date, "終了日"
     = f.date_field :end_date, class: 'form-control'
   .form-group
-    = f.label :detail, "優先度"
+    = f.label :priority, "優先度"
     = f.select :priority, Task.priorities_i18n.invert, {}, class: 'form-control'
+  .form-group
+    = f.label :status, "ステータス"
+    = f.select :status, Task.statuses_i18n.invert, {}, class: 'form-control'
   .actions
     = f.submit '保存', class: 'btn btn-primary'

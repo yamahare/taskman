@@ -4,7 +4,27 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
+    if (!params[:name].present? &&
+        !params[:sort_column].present? &&
+        !params[:sort_direction].present? &&
+        !params[:status].present?)
+      cookies.delete :search_name
+      cookies.delete :search_status
+    end
+
+    if params[:name].present?
+      cookies[:search_name] = params[:name]
+    end
+
+    if params[:status].present?
+      cookies[:search_status] = params[:status]
+    end
+
+    @status = cookies[:search_status]
+    @search_name_cookie = cookies[:search_name]
+    @tasks = Task.like_username(cookies[:search_name])
+                 .search_with_status(choice_status)
+                 .order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
   end
 
   # GET /tasks/1
@@ -72,7 +92,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :detail, :priority, :end_date)
+      params.require(:task).permit(:name, :detail, :priority, :end_date, :status)
     end
 
     def sort_column
@@ -81,5 +101,9 @@ class TasksController < ApplicationController
 
     def sort_direction
       %w[asc desc].include?(params[:sort_direction]) ? params[:sort_direction] : 'desc'
+    end
+
+    def choice_status
+      cookies[:search_status] if %w[0 1 2].include?(cookies[:search_status])
     end
 end
