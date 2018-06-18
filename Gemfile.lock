@@ -84,6 +84,8 @@ GEM
       activesupport (>= 3.0.0)
     erubi (1.7.1)
     execjs (2.7.0)
+    faker (1.8.7)
+      i18n (>= 0.7)
     ffi (1.9.25)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -239,6 +241,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   enum_help
+  faker
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)

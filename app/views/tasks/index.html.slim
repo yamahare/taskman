@@ -13,11 +13,11 @@
     li.nav-item
       = link_to 'すべて', tasks_path, class:"nav-link #{'active' if @status.nil? }"
     li.nav-item
-      = link_to '未着手', tasks_path(status: '0'), class:"nav-link #{'active' if @status == '0'}"
+      = link_to '未着手', tasks_path(status: 'waiting'), class:"nav-link #{'active' if @status == 'waiting'}"
     li.nav-item
-      = link_to '着手', tasks_path(status: '1'), class:"nav-link #{'active' if @status == '1'}"
+      = link_to '着手', tasks_path(status: 'working'), class:"nav-link #{'active' if @status == 'working'}"
     li.nav-item
-      = link_to '完了', tasks_path(status: '2'), class:"nav-link #{'active' if @status == '2'}"
+      = link_to '完了', tasks_path(status: 'completed'), class:"nav-link #{'active' if @status == 'completed'}"
 
 .row
   table.table.table-striped

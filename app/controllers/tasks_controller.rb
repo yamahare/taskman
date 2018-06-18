@@ -4,26 +4,17 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    if (!params[:name].present? &&
-        !params[:sort_column].present? &&
-        !params[:sort_direction].present? &&
-        !params[:status].present?)
-      cookies.delete :search_name
-      cookies.delete :search_status
+    if params.keys == %w[controller action]
+      [ :search_name, :search_status ].map { |s| cookies.delete(s) }
     end
 
-    if params[:name].present?
-      cookies[:search_name] = params[:name]
-    end
-
-    if params[:status].present?
-      cookies[:search_status] = params[:status]
-    end
+    cookies[:search_name]   = params[:name] if params[:name]
+    cookies[:search_status] = choice_status if params[:status]
 
     @status = cookies[:search_status]
     @search_name_cookie = cookies[:search_name]
     @tasks = Task.like_username(cookies[:search_name])
-                 .search_with_status(choice_status)
+                 .search_with_status(cookies[:search_status])
                  .order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
   end
 
@@ -104,6 +95,6 @@ class TasksController < ApplicationController
     end
 
     def choice_status
-      cookies[:search_status] if %w[0 1 2].include?(cookies[:search_status])
+      params[:status] if %w[waiting working completed].include?(params[:status])
     end
 end
