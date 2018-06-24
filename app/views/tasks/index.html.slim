@@ -1,25 +1,48 @@
-span ✅タスクリスト
-= link_to '新規作成', new_task_path, class: 'btn btn-primary'
+.row
+  = form_tag :tasks, method: :get, class: "form-inline mb-3" do
+    = text_field_tag :name, "#{@search_name_cookie}", class: 'form-control mr-sm-2'
+    = submit_tag '検索', class: 'btn btn-outline-success'
 
-table.table.table-striped
-  thead
-    tr
-      th タスク名
-      th
-        | 終了日
-        = link_to '▼', tasks_path(sort_column: 'end_date', sort_direction: 'desc')
-        = link_to '▲', tasks_path(sort_column: 'end_date', sort_direction: 'asc')
-      th
-        | 優先度
-        = link_to '▼', tasks_path(sort_column: 'priority', sort_direction: 'desc')
-        = link_to '▲', tasks_path(sort_column: 'priority', sort_direction: 'asc')
-      th
-      th
-  tbody
-    - @tasks.each do |task|
+.row
+  h2
+    | ✅タスクリスト
+    = link_to '新規作成', new_task_path, class: 'btn btn-primary'
+
+.row
+  ul.nav.nav-tabs
+    li.nav-item
+      = link_to 'すべて', tasks_path, class:"nav-link #{'active' if @status.nil? }"
+    li.nav-item
+      = link_to '未着手', tasks_path(status: 'waiting'), class:"nav-link #{'active' if @status == 'waiting'}"
+    li.nav-item
+      = link_to '着手', tasks_path(status: 'working'), class:"nav-link #{'active' if @status == 'working'}"
+    li.nav-item
+      = link_to '完了', tasks_path(status: 'completed'), class:"nav-link #{'active' if @status == 'completed'}"
+
+.row
+  table.table.table-striped
+    thead
       tr
-        td = link_to task.name, task, class: 'task_name'
-        td = task.end_date
-        td = task.priority_i18n
-        td = link_to '編集', edit_task_path(task), class: 'btn btn-success'
-        td = link_to '削除', task, method: :delete, data: {confirm: 'ほんとに消しちゃう？ほんと？'}, class: 'btn btn-danger'
+        th タスク名
+        th
+          | 終了日
+          = link_to '▼', tasks_path(sort_column: 'end_date', sort_direction: 'desc')
+          = link_to '▲', tasks_path(sort_column: 'end_date', sort_direction: 'asc')
+        th
+          | 優先度
+          = link_to '▼', tasks_path(sort_column: 'priority', sort_direction: 'desc')
+          = link_to '▲', tasks_path(sort_column: 'priority', sort_direction: 'asc')
+        th ステータス
+        th
+        th
+    tbody
+      - @tasks.each do |task|
+        tr
+          td = link_to task.name, task, class: 'task_name'
+          td = task.end_date
+          td = task.priority_i18n
+          td = task.status_i18n
+          td = link_to '編集', edit_task_path(task), class: 'btn btn-success'
+          td = link_to '削除', task, method: :delete, data: {confirm: 'ほんとに消しちゃう？ほんと？'}, class: 'btn btn-danger'
+
+= paginate @tasks

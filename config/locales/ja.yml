@@ -1,4 +1,11 @@
 ja:
+  views:
+    pagination:
+      previous: "前のページ"
+      next: "次のページ"
+      truncate: "..."
+      last: "最後"
+      first: "先頭"
   activerecord:
     errors:
       messages:
@@ -219,3 +226,7 @@ ja:
         middle: 中
         low: 低
         undef: ' '
+      status:
+        completed: 完了
+        working: 着手
+        waiting: 未着手

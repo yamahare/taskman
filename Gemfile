@@ -18,6 +18,10 @@ gem 'jquery-rails'
 gem 'slim-rails'
 # enum定義をi18nで翻訳
 gem 'enum_help'
+# データ生成用
+gem 'faker'
+# ページネーション
+gem 'kaminari'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
