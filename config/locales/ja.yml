@@ -1,4 +1,11 @@
 ja:
+  views:
+    pagination:
+      previous: "前のページ"
+      next: "次のページ"
+      truncate: "..."
+      last: "最後"
+      first: "先頭"
   activerecord:
     errors:
       messages:

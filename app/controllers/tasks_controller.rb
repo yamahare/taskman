@@ -16,6 +16,7 @@ class TasksController < ApplicationController
     @tasks = Task.like_username(cookies[:search_name])
                  .search_with_status(cookies[:search_status])
                  .order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
+                 .page(params[:page])
   end
 
   # GET /tasks/1
