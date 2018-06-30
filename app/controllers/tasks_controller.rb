@@ -4,17 +4,8 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    if params.keys == %w[controller action]
-      [ :search_name, :search_status ].map { |s| cookies.delete(s) }
-    end
-
-    cookies[:search_name]   = params[:name] if params[:name]
-    cookies[:search_status] = choice_status if params[:status]
-
-    @status = cookies[:search_status]
-    @search_name_cookie = cookies[:search_name]
-    @tasks = Task.like_username(cookies[:search_name])
-                 .search_with_status(cookies[:search_status])
+    @tasks = Task.like_username(params[:name])
+                 .search_with_status(choice_status)
                  .order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
                  .page(params[:page])
   end
