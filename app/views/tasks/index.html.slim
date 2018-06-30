@@ -13,11 +13,11 @@
     li.nav-item
       = link_to 'すべて', tasks_path, class:"nav-link #{'active' if params[:status].nil? }"
     li.nav-item
-      = link_to '未着手', params.permit(:name).merge(status: :waiting), class:"nav-link #{'active' if params[:status] == 'waiting'}"
+      = link_to '未着手', params.permit(:name, :sort_column, :sort_direction).merge(status: :waiting), class:"nav-link #{'active' if params[:status] == 'waiting'}"
     li.nav-item
-      = link_to '着手', params.permit(:name).merge(status: :working), class:"nav-link #{'active' if params[:status] == 'working'}"
+      = link_to '着手', params.permit(:name, :sort_column, :sort_direction).merge(status: :working), class:"nav-link #{'active' if params[:status] == 'working'}"
     li.nav-item
-      = link_to '完了', params.permit(:name).merge(status: :completed), class:"nav-link #{'active' if params[:status] == 'completed'}"
+      = link_to '完了', params.permit(:name, :sort_column, :sort_direction).merge(status: :completed), class:"nav-link #{'active' if params[:status] == 'completed'}"
 
 .row
   table.table.table-striped
@@ -26,12 +26,12 @@
         th タスク名
         th
           | 終了日
-          = link_to '▼', tasks_path(sort_column: 'end_date', sort_direction: 'desc')
-          = link_to '▲', tasks_path(sort_column: 'end_date', sort_direction: 'asc')
+          = link_to '▼', params.permit(:name, :status).merge(sort_column: :end_date, sort_direction: :desc)
+          = link_to '▲', params.permit(:name, :status).merge(sort_column: :end_date, sort_direction: :asc)
         th
           | 優先度
-          = link_to '▼', tasks_path(sort_column: 'priority', sort_direction: 'desc')
-          = link_to '▲', tasks_path(sort_column: 'priority', sort_direction: 'asc')
+          = link_to '▼', params.permit(:name, :status).merge(sort_column: :priority, sort_direction: :desc)
+          = link_to '▲', params.permit(:name, :status).merge(sort_column: :priority, sort_direction: :asc)
         th ステータス
         th
         th
