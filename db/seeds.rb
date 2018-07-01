@@ -11,7 +11,7 @@ Faker::Config.locale = :ja
 50.times do
   users = User.create(name: Faker::Name.name,
                       email: Faker::Internet.email,
-                      password_digest: 'test')
+                      password_digest: User.digest('test'))
 end
 
 500.times do
