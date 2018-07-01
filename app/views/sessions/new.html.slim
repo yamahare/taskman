@@ -1,0 +1,11 @@
+h1 ログイン
+
+= form_with scope: :user, url: login_path do |f|
+  .form_group
+    = f.label :email, "メールアドレス"
+    = f.text_field :email, class: 'form-control'
+  .form-group
+    = f.label :detail, "パスワード"
+    = f.password_field :password, class: 'form-control'
+  .actions
+    = f.submit 'ログイン', class: 'btn btn-primary'

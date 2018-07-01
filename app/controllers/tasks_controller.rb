@@ -1,13 +1,17 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  skip_before_action :require_login, only: [:index]
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.like_username(params[:name])
-                 .search_with_status(choice_status)
-                 .order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
-                 .page(params[:page])
+    if logged_in?
+      @tasks = @current_user.tasks
+                  .like_username(params[:name])
+                  .search_with_status(choice_status)
+                  .order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
+                  .page(params[:page])
+    end
   end
 
   # GET /tasks/1
@@ -31,7 +35,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        flash.now[:success] = '新しいタスクが作成されました！'
+        flash[:success] = '新しいタスクが作成されました！'
         format.html { redirect_to @task }
         format.json { render :show, status: :created, location: @task }
       else
@@ -46,7 +50,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        flash.now[:success] = 'タスクの編集に成功しました！'
+        flash[:success] = 'タスクの編集に成功しました！'
         format.html { redirect_to @task }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -60,7 +64,7 @@ class TasksController < ApplicationController
   # DELETE /tasks/1.json
   def destroy
     @task.destroy
-    flash.now[:success] = 'タスクの削除に成功しました！'
+    flash[:success] = 'タスクの削除に成功しました！'
     respond_to do |format|
       format.html { redirect_to tasks_url }
       format.json { head :no_content }
