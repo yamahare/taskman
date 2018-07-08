@@ -5,7 +5,11 @@ class Admin::UsersController < Admin::BaseController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    task_counts = Task.group(:user_id).select("user_id, COUNT(id) AS task_num").to_sql
+    @users = User.joins("LEFT JOIN (#{task_counts}) task_data ON users.id = task_data.user_id")
+                 .select("users.*, task_data.task_num AS task_num")
+                 .order(created_at: :desc)
+                 .page(params[:page])
   end
 
   # GET /users/1
@@ -58,7 +62,7 @@ class Admin::UsersController < Admin::BaseController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to admin_users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,9 @@
+h3
+  = @task.name
+
+h5.text-secondary
+  = @task.detail
+
+= link_to 'Edit', edit_task_path(@task)
+| |
+= link_to 'Back', tasks_path

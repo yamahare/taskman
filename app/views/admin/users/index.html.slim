@@ -4,14 +4,18 @@ h1 ユーザ一覧
   table.table.table-striped.table-sm
     thead
       tr
+        th id
         th 名前
+        th タスク数
         th
         th
 
     tbody
       - @users.each do |user|
         tr
+          td = user.id
           td = link_to user.name, user
+          td = user.task_num
           td = link_to '編集', edit_user_path(user)
-          td = link_to '削除', user, data: { confirm: 'ほんと？？' }, method: :delete
-
+          td = link_to '削除', [:admin, user], data: { confirm: 'ほんと？？' }, method: :delete
+= paginate @users

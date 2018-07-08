@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post   'login',  to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
   # ユーザ
-  resources :users, only: [:index, :create, :show, :edit, :update, :destroy]
+  resources :users, only: [:index, :create, :show, :edit, :update]
   get    'signup', to: 'users#new'
 
   namespace :admin do
@@ -14,5 +14,7 @@ Rails.application.routes.draw do
     root to: 'dashboard#index'
     # ユーザ
     resources :users, only: [:index, :create, :show, :edit, :update, :destroy]
+    # タスク
+    resources :tasks, only: [:index]
   end
 end
