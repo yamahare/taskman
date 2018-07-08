@@ -19,6 +19,8 @@ nav.navbar.navbar-expand-sm.navbar-dark.bg-dark
             = current_user.name
           .dropdown-menu aria-labelledby="navbarDropdown"
             = link_to "設定", user_path(current_user), class: "dropdown-item"
+            - if is_admin?
+              = link_to "管理画面", admin_root_path, class: "dropdown-item"
             = link_to "ログアウト", logout_path, method: :delete, class: "dropdown-item"
       - else
         li.nav-item

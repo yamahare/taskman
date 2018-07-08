@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :require_login
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :is_admin?
 
   private
     def login(user)
@@ -28,6 +28,10 @@ class ApplicationController < ActionController::Base
         flash[:danger] = 'ログインをしてください。'
         redirect_to login_path 
       end
+    end
+
+    def is_admin?
+      current_user.is_admin?
     end
 
 end

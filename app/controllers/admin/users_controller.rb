@@ -1,7 +1,6 @@
 # ユーザコントローラーメソッド
 class Admin::UsersController < Admin::BaseController
   before_action :set_user, only: %i[show edit update destroy]
-  skip_before_action :require_login, only: [:new, :create]
 
   # GET /users
   # GET /users.json
