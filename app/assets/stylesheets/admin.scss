@@ -1,0 +1,26 @@
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css');
+@import "admin/*";
+
+#error_explanation {
+  color: red;
+}
+
+.sidebar{
+  padding: 48px 0 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+main{
+  padding-top: 55px;
+}
+
+.sidebar-sticky{
+  padding-top: .5rem;
+}

@@ -8,4 +8,11 @@ Rails.application.routes.draw do
   # ユーザ
   resources :users, only: [:index, :create, :show, :edit, :update, :destroy]
   get    'signup', to: 'users#new'
+
+  namespace :admin do
+    # ダッシュボード
+    root to: 'dashboard#index'
+    # ユーザ
+    resources :users, only: [:index, :create, :show, :edit, :update, :destroy]
+  end
 end

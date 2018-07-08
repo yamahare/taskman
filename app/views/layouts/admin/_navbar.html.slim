@@ -1,0 +1,25 @@
+nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.fixed-top.shadow
+
+  a.navbar-brand href='/'
+    /!= image_tag("live-antenna.png", alt: "logo",  width: "40px", height: "30px", class: 'd-inline-block align-top') %
+    | タスクマン管理画面
+
+  button.navbar-toggler type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+    span.navbar-toggler-icon
+
+  .collapse.navbar-collapse#navbarNav
+    ul.navbar-nav
+      li.nav-item
+        = link_to "タスク", tasks_path, class: "nav-link"
+      li.nav-item
+        = link_to "ユーザ", users_path, class: "nav-link"
+      - if logged_in?
+        li.nav-item.dropdown
+          a.nav-link.dropdown-toggle href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            = current_user.name
+          .dropdown-menu aria-labelledby="navbarDropdown"
+            = link_to "設定", user_path(current_user), class: "dropdown-item"
+            = link_to "ログアウト", logout_path, method: :delete, class: "dropdown-item"
+      - else
+        li.nav-item
+          = link_to "ログイン", login_path, class: "nav-link"

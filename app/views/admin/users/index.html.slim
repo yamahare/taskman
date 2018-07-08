@@ -5,8 +5,13 @@ h1 ユーザ一覧
     thead
       tr
         th 名前
+        th
+        th
 
     tbody
       - @users.each do |user|
         tr
           td = link_to user.name, user
+          td = link_to '編集', edit_user_path(user)
+          td = link_to '削除', user, data: { confirm: 'ほんと？？' }, method: :delete
+
