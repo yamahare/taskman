@@ -141,6 +141,7 @@ ja:
       other_than: は%{count}以外の値にしてください
       other_than: は%{count}以外の値にしてください
       can_not_use_past_day: は過去の日付を指定できません
+      at_least_one_required: は少なくとも１つ必要です
     template:
       body: 次の項目を確認してください
       header:
@@ -219,6 +220,9 @@ ja:
         name: タスク名
         priority: 優先度
         end_date: 終了日
+    attributes:
+      user:
+        is_admin: 管理者
   enums:
     task:
       priority:

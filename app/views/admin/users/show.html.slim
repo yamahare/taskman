@@ -1,0 +1,13 @@
+h3 ユーザ情報
+
+dl
+  dt ユーザID
+  dd = @user.username
+  dt ユーザ表示名
+  dd = @user.display_name || '名無し'
+  dt mail
+  dd = @user.email
+
+h4 ユーザタスク一覧
+- @tasks.each_with_index do |task, i|
+  p = "#{i+1}:#{task.name}"

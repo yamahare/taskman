@@ -1,0 +1,12 @@
+h1 ユーザ一覧
+
+.row
+  table.table.table-striped.table-sm
+    thead
+      tr
+        th 名前
+
+    tbody
+      - @users.each do |user|
+        tr
+          td = link_to display_user_name(user), user_profile_path(user.username)

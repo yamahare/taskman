@@ -1,0 +1,14 @@
+h3 ユーザ情報
+
+dl
+  dt ユーザID
+  dd = @user.username
+  dt ユーザ表示名
+  dd = @user.display_name || '名無し'
+  dt mail
+  dd = @user.email
+
+- if @current_user.id == @user.id
+  = link_to "編集", user_profile_edit_path
+
+

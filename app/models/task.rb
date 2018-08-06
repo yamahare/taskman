@@ -8,6 +8,8 @@ class Task < ApplicationRecord
   validates :status,   presence: true, inclusion: { in: %w(completed working waiting) }
   validate :end_date_cannot_be_in_the_past
 
+  belongs_to :user
+
   scope :like_username, ->(name) do
     if name.present?
       where("name LIKE ?", "%#{name}%")
