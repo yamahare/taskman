@@ -16,9 +16,9 @@ nav.navbar.navbar-expand-sm.navbar-dark.bg-dark
       - if logged_in?
         li.nav-item.dropdown
           a.nav-link.dropdown-toggle href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            = current_user.name
+            =  display_user_name(current_user)
           .dropdown-menu aria-labelledby="navbarDropdown"
-            = link_to "設定", user_path(current_user), class: "dropdown-item"
+            = link_to "プロフィール", user_profile_path(current_user.username), class: "dropdown-item"
             - if is_admin?
               = link_to "管理画面", admin_root_path, class: "dropdown-item"
             = link_to "ログアウト", logout_path, method: :delete, class: "dropdown-item"

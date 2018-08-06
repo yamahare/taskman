@@ -14,7 +14,9 @@ class Admin::UsersController < Admin::BaseController
 
   # GET /users/1
   # GET /users/1.json
-  def show; end
+  def show
+    @tasks = @user.tasks.order(created_at: :desc)
+  end
 
   # GET /users/new
   def new
@@ -31,9 +33,8 @@ class Admin::UsersController < Admin::BaseController
 
     respond_to do |format|
       if @user.save
-        login(@user)
         flash[:success] = 'ユーザの登録が完了しました。'
-        format.html { redirect_to @user }
+        format.html { redirect_to admin_user_path(@user) }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -48,7 +49,7 @@ class Admin::UsersController < Admin::BaseController
     respond_to do |format|
       if @user.update(user_params)
         flash[:success] = 'ユーザ編集完了'
-        format.html { redirect_to @user }
+        format.html { redirect_to admin_user_path(@user) }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -60,20 +61,24 @@ class Admin::UsersController < Admin::BaseController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
     respond_to do |format|
-      format.html { redirect_to admin_users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+      if @user.destroy
+        format.html { redirect_to admin_users_url, notice: '削除成功' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to admin_users_url, notice: '削除に失敗しました。' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def user_params
-    params.fetch(:user).permit(:name, :email, :password, :password_confirmation)
+    params.fetch(:user).permit(:display_name, :username, :email, :is_admin, :password, :password_confirmation)
   end
 end

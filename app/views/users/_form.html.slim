@@ -7,8 +7,11 @@
           li = message
 
   .form-group
-    = f.label :name, "ユーザ名"
-    = f.text_field :name, class: 'form-control'
+    = f.label :username, "ユーザID(半角英数字のみ)"
+    = f.text_field :username, class: 'form-control'
+  .form-group
+    = f.label :display_name, "表示名"
+    = f.text_field :display_name, class: 'form-control'
   .form-group
     = f.label :detail, "メールアドレス"
     = f.text_field :email, class: 'form-control'

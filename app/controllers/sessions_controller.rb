@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(session_params[:password])
       login(@user)
       flash[:success] = 'ログインに成功したぞ！！！'
-      redirect_to @current_user
+      redirect_to user_profile_path(@current_user.username)
     else
       flash[:danger] = 'メールアドレスまたはパスワードが間違っています!!!!'
       redirect_to login_path

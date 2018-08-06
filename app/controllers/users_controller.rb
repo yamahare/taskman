@@ -1,7 +1,7 @@
 # ユーザコントローラーメソッド
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update]
-  skip_before_action :require_login, only: [:new, :create]
+  before_action :set_user_from_username, only: %i[show]
+  skip_before_action :require_login, only: %i[new create]
 
   # GET /users
   # GET /users.json
@@ -18,8 +18,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  # GET /users/1/edit
-  def edit; end
+  # GET /settings/profile
+  def edit
+    @user = @current_user
+  end
 
   # POST /users
   # POST /users.json
@@ -30,7 +32,7 @@ class UsersController < ApplicationController
       if @user.save
         login(@user)
         flash[:success] = 'ユーザの登録が完了しました。'
-        format.html { redirect_to @user }
+        format.html { redirect_to user_profile_path(@current_user.username) }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -43,9 +45,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if @current_user.update(user_params)
         flash[:success] = 'ユーザ編集完了'
-        format.html { redirect_to @user }
+        format.html { redirect_to user_profile_path(@current_user.username) }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -56,11 +58,11 @@ class UsersController < ApplicationController
 
   private
 
-  def set_user
-    @user = User.find(params[:id])
+  def set_user_from_username
+    @user = User.find_by(username: params[:username])
   end
 
   def user_params
-    params.fetch(:user).permit(:name, :email, :password, :password_confirmation)
+    params.fetch(:user).permit(:username, :display_name, :email, :password, :password_confirmation)
   end
 end
