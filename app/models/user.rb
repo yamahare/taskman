@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   before_validation { username.downcase! }
   before_validation { email.downcase! }
-  before_save :check_least_one_admin
+  after_update :check_least_one_admin
   before_destroy :check_least_one_admin_before_destroy
 
   validates :display_name, length: { maximum: 100 }
@@ -21,9 +21,9 @@ class User < ApplicationRecord
 
   # 管理者ユーザが１名以上必要
   def check_least_one_admin
-    if User.where(is_admin: true).size == 1 && !self.is_admin?
+    if User.where(is_admin: true).size == 0
       errors.add(:is_admin, :at_least_one_required)
-      throw(:abort)
+      raise ActiveRecord::RecordInvalid.new(self)
     end
   end
 
