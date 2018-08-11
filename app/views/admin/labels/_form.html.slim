@@ -1,0 +1,13 @@
+= form_for ([:admin, @label]) do |f|
+  - if @label.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@label.errors.count, "エラー")}下記を修正してください！"
+      ul
+        - @label.errors.full_messages.each do |message|
+          li= message
+
+  .form-group
+    = f.label :name, "ラベル名"
+    = f.text_field :name, class: 'form-control'
+  .actions
+    = f.submit '保存', class: 'btn btn-primary'

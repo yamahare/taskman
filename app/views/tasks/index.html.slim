@@ -35,6 +35,7 @@
             = link_to '▼', params.permit(:name, :status).merge(sort_column: :priority, sort_direction: :desc)
             = link_to '▲', params.permit(:name, :status).merge(sort_column: :priority, sort_direction: :asc)
           th ステータス
+          th ラベル
           th
           th
       tbody
@@ -44,6 +45,9 @@
             td = task.end_date
             td = task.priority_i18n
             td = task.status_i18n
+            td
+              - task.labels.each do |label|
+                p = label.name
             td = link_to '編集', edit_task_path(task), class: 'btn btn-success'
             td = link_to '削除', task, method: :delete, data: {confirm: 'ほんとに消しちゃう？ほんと？'}, class: 'btn btn-danger'
 

@@ -1,0 +1,19 @@
+.row
+  h1 ラベル一覧
+
+= link_to '新規作成', new_admin_label_path, class: 'btn btn-primary'
+
+.row
+  table.table.table-striped.table-sm
+    thead
+      tr
+        th ラベル名
+        th
+        th
+    tbody
+      - @labels.each do |label|
+        tr
+          td = label.name
+          td = link_to '編集', edit_admin_label_path(label)
+          td = link_to '削除', [:admin, label], data: { confirm: 'ほんと？？' }, method: :delete
+= paginate @labels

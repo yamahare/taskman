@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :new, :create, :show, :edit, :update, :destroy]
     # タスク
     resources :tasks, only: [:index]
+    # ラベル
+    resources :labels, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 
   # ユーザ-----------------------------------------

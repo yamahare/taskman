@@ -21,5 +21,9 @@
   .form-group
     = f.label :status, "ステータス"
     = f.select :status, Task.statuses_i18n.invert, {}, class: 'form-control'
+  .form-group
+    = f.collection_check_boxes :label_ids, Label.all, :id, :name do |ff|
+      .form-check
+        = ff.label(class: "form-check-label") { ff.check_box(class: "form-check-input") + ff.text }
   .actions
     = f.submit '保存', class: 'btn btn-primary'

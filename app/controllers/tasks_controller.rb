@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     if logged_in?
-      @tasks = current_user.tasks
+      @tasks = current_user.tasks.includes(:labels)
                   .like_username(params[:name])
                   .search_with_status(choice_status)
                   .order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
@@ -74,13 +74,13 @@ class TasksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = current_user.tasks.find_by(id: params[:id])
+      @task = current_user.tasks.includes(:labels).find_by(id: params[:id])
       redirect_to root_path if @task.nil?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :detail, :priority, :end_date, :status)
+      params.require(:task).permit(:name, :detail, :priority, :end_date, :status, label_ids: [])
     end
 
     def sort_column
