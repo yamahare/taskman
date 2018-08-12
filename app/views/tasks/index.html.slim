@@ -2,12 +2,14 @@
 
   .row
     = form_tag :tasks, method: :get, class: "form-inline mb-3" do
-      = text_field_tag :name, params[:name], class: 'form-control mr-sm-2'
+      = text_field_tag 'task[name]', params.dig(:task, :name), class: 'form-control mr-sm-2'
+      = collection_check_boxes :task, :label_ids, Label.all, :id, :name, checked: params.dig(:task, :label_ids) do |ff|
+        = ff.label(class: "form-check-label") { ff.check_box(class: "form-check-input") + ff.text }
       = submit_tag '検索', class: 'btn btn-outline-success'
 
   .row
     h2
-      | ✅タスクリスト
+      | タスクリスト
       = link_to '新規作成', new_task_path, class: 'btn btn-primary'
 
   .row
@@ -15,11 +17,17 @@
       li.nav-item
         = link_to 'すべて', tasks_path, class:"nav-link #{'active' if params[:status].nil? }"
       li.nav-item
-        = link_to '未着手', params.permit(:name, :sort_column, :sort_direction).merge(status: :waiting), class:"nav-link #{'active' if params[:status] == 'waiting'}"
+        = link_to('未着手', params.permit(:sort_column, :sort_direction,
+          task: [:name, label_ids: []]).merge(status: :waiting),
+          class: "nav-link #{'active' if params[:status] == 'waiting'}")
       li.nav-item
-        = link_to '着手', params.permit(:name, :sort_column, :sort_direction).merge(status: :working), class:"nav-link #{'active' if params[:status] == 'working'}"
+        = link_to('着手', params.permit(:sort_column, :sort_direction,
+          task: [:name, label_ids: []]).merge(status: :working),
+          class: "nav-link #{'active' if params[:status] == 'working'}")
       li.nav-item
-        = link_to '完了', params.permit(:name, :sort_column, :sort_direction).merge(status: :completed), class:"nav-link #{'active' if params[:status] == 'completed'}"
+        = link_to('完了', params.permit(:sort_column, :sort_direction,
+          task: [:name, label_ids: []]).merge(status: :completed),
+          class: "nav-link #{'active' if params[:status] == 'completed'}")
 
   .row
     table.table.table-striped
@@ -28,12 +36,12 @@
           th タスク名
           th
             | 終了日
-            = link_to '▼', params.permit(:name, :status).merge(sort_column: :end_date, sort_direction: :desc)
-            = link_to '▲', params.permit(:name, :status).merge(sort_column: :end_date, sort_direction: :asc)
+            = link_to '▼', params.permit(:status, task: [:name, label_ids: []]).merge(sort_column: :end_date, sort_direction: :desc)
+            = link_to '▲', params.permit(:status, task: [:name, label_ids: []]).merge(sort_column: :end_date, sort_direction: :asc)
           th
             | 優先度
-            = link_to '▼', params.permit(:name, :status).merge(sort_column: :priority, sort_direction: :desc)
-            = link_to '▲', params.permit(:name, :status).merge(sort_column: :priority, sort_direction: :asc)
+            = link_to '▼', params.permit(:status, task: [:name, label_ids: []]).merge(sort_column: :priority, sort_direction: :desc)
+            = link_to '▲', params.permit(:status, task: [:name, label_ids: []]).merge(sort_column: :priority, sort_direction: :asc)
           th ステータス
           th ラベル
           th

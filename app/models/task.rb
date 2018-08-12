@@ -14,7 +14,7 @@ class Task < ApplicationRecord
   has_many :labels, through: :task_labels
   accepts_nested_attributes_for :task_labels, allow_destroy: true
 
-  scope :like_username, ->(name) do
+  scope :like_name, ->(name) do
     if name.present?
       where("name LIKE ?", "%#{name}%")
     end
@@ -23,6 +23,18 @@ class Task < ApplicationRecord
   scope :search_with_status, ->(status) do
     if status
       where(status: status)
+    end
+  end
+
+  scope :find_with_label, ->(labels) do
+    unless labels.blank?
+      where(<<-SQL, labels: labels)
+          EXISTS (SELECT *
+                  FROM  task_labels tl
+                  WHERE tl.label_id in (:labels)
+                  AND   tasks.id = tl.task_id
+                 )
+          SQL
     end
   end
 

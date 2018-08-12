@@ -6,11 +6,13 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     if logged_in?
-      @tasks = current_user.tasks.includes(:labels)
-                  .like_username(params[:name])
-                  .search_with_status(choice_status)
-                  .order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
-                  .page(params[:page])
+      @tasks = current_user.tasks
+                .like_name(params.dig(:task, :name))
+                .search_with_status(choice_status)
+                .find_with_label(params.dig(:task, :label_ids)&.reject(&:blank?))
+                .includes(:labels)
+                .order(sort_column + ' ' + sort_direction  + ' ' + 'NULLS LAST')
+                .page(params[:page])
     end
   end
 
